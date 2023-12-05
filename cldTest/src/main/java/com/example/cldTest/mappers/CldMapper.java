@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper
 public interface CldMapper {
 
-    @Select("select * from cldList")
-    public List<CldDto> getCldList();
-
-    @Insert("insert into cldList values(#{id}, #{title}, #{start}, #{end}, #{display}, #{color})")
-    public void setCldList(CldDto cldDto);
+//    @Select("select * from cldList")
+//    public List<CldDto> getCldList();
+//
+//    @Insert("insert into cldList values(#{id}, #{title}, #{start}, #{end}, #{display}, #{color})")
+//    public void setCldList(CldDto cldDto);
 }

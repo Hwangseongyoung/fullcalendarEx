@@ -22,21 +22,21 @@ public class ReserveService {
     @Autowired
     CldMapper cldMapper;
 
-    public String cldSet(@ModelAttribute ReserveDto reserveDto, @ModelAttribute CldDto cldDto) {
+    public String cldSet(@ModelAttribute ReserveDto reserveDto/*, @ModelAttribute CldDto cldDto*/) {
         String str="";
         if(reserveDto != null) {
-            cldDto.setId(reserveDto.getId());
-            cldDto.setTitle(reserveDto.getUsername());
-            cldDto.setStart(reserveDto.getCheckin());
-            cldDto.setEnd(reserveDto.getCheckout());
-            cldDto.setDisplay(cldDto.getDisplay());
-            if(reserveDto.getRoom().equals("A")) {
-                cldDto.setColor("#cccccc");
-            }else if(reserveDto.getRoom().equals("B")) {
-                cldDto.setColor("#fff9f89");
-            }
+//            cldDto.setId(reserveDto.getId());
+//            cldDto.setTitle(reserveDto.getUsername());
+//            cldDto.setStart(reserveDto.getCheckin());
+//            cldDto.setEnd(reserveDto.getCheckout());
+//            cldDto.setDisplay(cldDto.getDisplay());
+//            if(reserveDto.getRoom().equals("A")) {
+//                cldDto.setColor("#cccccc");
+//            }else if(reserveDto.getRoom().equals("B")) {
+//                cldDto.setColor("#ff9f89");
+//            }
             reserveMapper.setReserve(reserveDto);
-            cldMapper.setCldList(cldDto);
+//            cldMapper.setCldList(cldDto);
             str = "success";
         }else {
             str = "fail";
@@ -44,9 +44,9 @@ public class ReserveService {
         return str;
     }
 
-    public List<CldDto> getcld() {
-        return cldMapper.getCldList();
-    }
+//    public List<CldDto> getcld() {
+//        return cldMapper.getCldList();
+//    }
 
     public  List<ReserveDto> getReserve() {
         return reserveMapper.getReserve();

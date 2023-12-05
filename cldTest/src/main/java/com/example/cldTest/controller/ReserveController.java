@@ -27,8 +27,8 @@ public class ReserveController {
 
     @PostMapping("/reserve")
     @ResponseBody
-    public Map<String, Object> setReserve(@ModelAttribute ReserveDto reserveDto, @ModelAttribute CldDto cldDto) {
-        String result = reserveService.cldSet(reserveDto, cldDto);
+    public Map<String, Object> setReserve(@ModelAttribute ReserveDto reserveDto/*, @ModelAttribute CldDto cldDto*/) {
+        String result = reserveService.cldSet(reserveDto/*, cldDto*/);
         Map<String, Object> map = new HashMap<>();
 
         map.put("msg", result);
