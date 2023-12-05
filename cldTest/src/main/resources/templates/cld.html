@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캘린더</title>
+  <script src='/static/js/index.global.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <style>
+
+    body {
+      margin: 40px 10px;
+      padding: 0;
+      font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+  
+    #calendar {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div id='calendar'></div>
+
+  <script>
+    let today_date = new Date().getDate();
+    let today_month = new Date().getMonth() + 1;
+    let today_year = new Date().getFullYear();
+  
+    if(today_date < 10) {
+      today_date = "0"+today_date;
+    }
+    if(today_month < 10) {
+      today_month = "0"+today_month;
+    }
+  
+    let today = today_year + "-" +today_month + "-" + today_date;
+  
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+
+      // $.ajax({
+      //   type: "get",
+      //   url: "/cldList",
+      //   dataType: "json",
+      //   success: function(result) {
+      //     console.log(result.cldList);
+      //     let obj = result.cldList;
+      //     var calendar = new FullCalendar.Calendar(calendarEl, {
+      //     headerToolbar: {
+      //       left: 'prev,next today',
+      //       center: 'title',
+      //       right: 'dayGridMonth,dayGridWeek,dayGridDay'
+      //     },
+      //     initialDate: today,
+      //     navLinks: true, // can click day/week names to navigate views
+      //     editable: true,
+      //     dayMaxEvents: true, // allow "more" link when too many events
+      //     events: obj
+      //     });
+      //     calendar.render();
+      //   }
+      // });
+
+      $.ajax({
+        type: "get",
+        url: "/cldList",
+        dataType: "json",
+        success: function(result) {
+          console.log(result.cldList);
+
+          let obj = [];
+          for(let i=0; i<result.cldList.length; i++) {
+            let color;
+            if(result.cldList[i].room == "A") {
+              color = "#cccccc";
+            }else if(result.cldList[i].room == "B") {
+              color = "#ff9f89";
+            }
+            obj[i] = {
+              title: result.cldList[i].username,
+              start: result.cldList[i].checkin,
+              end: result.cldList[i].checkout,
+              display: "daygrid",
+              color: color
+            }
+          }
+          console.log(obj);
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,dayGridWeek,dayGridDay'
+          },
+          initialDate: today,
+          navLinks: true, // can click day/week names to navigate views
+          editable: true,
+          dayMaxEvents: true, // allow "more" link when too many events
+          events: obj
+          });
+          calendar.render();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

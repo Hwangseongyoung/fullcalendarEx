@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>예약하기</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+  <form>
+    <ul>
+      <li>
+        <label>username</label>
+        <input type="text" name="username"/>
+      </li>
+      <li>
+        <label>checkin</label>
+        <input type="text" name="checkin"/>
+      </li>
+      <li>
+        <label>checkout</label>
+        <input type="text" name="checkout"/>
+      </li>
+      <li>
+        <label>room</label>
+        <input type="text" name="room"/>
+      </li>
+      <li>
+        <button type="button" class="btn">예약하기</button>
+      </li>
+    </ul>
+  </form>
+
+  <script>
+    let username = document.querySelector("input[name=username]");
+    let checkin = document.querySelector("input[name=checkin]");
+    let checkout = document.querySelector("input[name=checkout]");
+    let room = document.querySelector("input[name=room]");
+    let btn = document.querySelector(".btn");
+
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      let obj = {
+        username: username.value,
+        checkin: checkin.value,
+        checkout: checkout.value,
+        room: room.value
+      };
+
+      console.log(obj);
+      $.ajax({
+        type: "post",
+        url: "/reserve",
+        dataType: "json",
+        data: obj,
+        success: function(result){
+          if(result.msg == "success") {
+            alert("예약완료");
+          }else {
+            aler("예약실패");
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
